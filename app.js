@@ -12,7 +12,9 @@ class Book {
 }
 
 //UI Class: Handle UI Task 
-
+//THE TOOLS THAT YOU COME BACK TO AND USE
+//THE TOOLS THAT YOU COME BACK TO AND USE
+//THE TOOLS THAT YOU COME BACK TO AND USE
 class UI {
     //Static is basically just a way of creating a method inside a constructor setting 
     static displayBooks()
@@ -39,6 +41,11 @@ class UI {
         list.appendChild(row);
     }
          
+    static clearFields(){
+        document.querySelector('#title').value = '';
+        document.querySelector('#author').value = '';
+        document.querySelector('#isbn').value = '';
+    }
 }
 
 //Store Class: Handles Storage 
@@ -60,7 +67,9 @@ document.querySelector('#book-form').addEventListener('submit', (e) =>{
     //Add Book to UI
     UI.addBookToList(book);
     
-    console.log(book);
+    //Clear fields 
+    UI.clearFields();
+    
 });
 //Event: Remove a Book
 
