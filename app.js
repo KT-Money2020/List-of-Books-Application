@@ -19,10 +19,7 @@ class UI {
     //Static is basically just a way of creating a method inside a constructor setting 
     static displayBooks()
     {
-        const StoredBooks = [{title: 'Book One', author: 'John Doe', isbn: '3434434'},{title: 'Book Two', author: 'Jane Doe', isbn: '45545'}];
-        
-            
-        const books = StoredBooks;
+        const books = Store.getBooks();
 
         books.forEach((book) => UI.addBookToList(book));
     }
@@ -78,16 +75,36 @@ class UI {
 
 //Store Class: Handles Storage 
 class Store{
-    getBooks(){
-        
+    static getBooks(){
+        let books;
+        /*Basically every local storage has an already created method called getItem which is used to access the items which it holds*/
+        //If there is no items of books then books is equal to none
+        if(localStorage.getItem('books') === null){
+            books=[];
+        }else{
+            /*When javascript data like arrays are stored they get converted into strings, and when it comes time to reaccess it we would need to parse the string into an array of objects once again, and in order to do that you would use the JSON.parse trick */
+            books = JSON.parse(localStorage.getItem('books'));
+        }
+        return books;
     }
     
     static addBook(book){
+        const books = Store.getBooks();
         
+        books.push(book);
+        
+        localStorage.setItem('books', JSON.stringify(books));
     }
     
     static removeBook(isbn){
+        const books = Store.getBooks();
         
+        books.forEach((book,index) => {
+            if(book.isbn === isbn){
+               books.splice(index,1);
+               }
+        });
+        localStorage.setItem('books', JSON.stringify(books));
     }
 }
 
@@ -114,6 +131,9 @@ document.querySelector('#book-form').addEventListener('submit', (e) =>{
     //Add Book to UI
     UI.addBookToList(book);
     
+    //Add book to store
+    Store.addBook(book);       
+           
     //Show success message
     UI.showAlert('Book Added', 'success');
            
