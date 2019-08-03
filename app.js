@@ -77,6 +77,19 @@ class UI {
 }
 
 //Store Class: Handles Storage 
+class Store{
+    getBooks(){
+        
+    }
+    
+    static addBook(book){
+        
+    }
+    
+    static removeBook(isbn){
+        
+    }
+}
 
 //Event: Display Books, when the browser loads it displays the current books being held
 document.addEventListener('DOMContentLoaded', UI.displayBooks);
